@@ -16,8 +16,12 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { BRAND, MOTION } from "@/lib/constants";
 
-function splitToChars(text: string) {
-  return Array.from(text).map((char, i) => ({ char, key: `${char}-${i}` }));
+function splitToWords(text: string) {
+  return text.split(" ").map((word, w) => ({
+    word,
+    key: `w-${w}-${word}`,
+    chars: Array.from(word).map((char, i) => ({ char, key: `${w}-${i}-${char}` })),
+  }));
 }
 
 export default function AnimatedTagline({ primary }: { primary: string }) {
@@ -69,7 +73,7 @@ export default function AnimatedTagline({ primary }: { primary: string }) {
     );
   }, [rotatingIndex]);
 
-  const chars = splitToChars(primary);
+  const words = splitToWords(primary);
 
   return (
     <>
@@ -83,24 +87,24 @@ export default function AnimatedTagline({ primary }: { primary: string }) {
         }}
         aria-label={primary}
       >
-        <span className="inline-flex flex-wrap overflow-hidden">
-          {chars.map(({ char, key }) =>
-            char === " " ? (
-              <span key={key} className="inline-block w-[0.3em]">
-                {" "}
-              </span>
-            ) : (
+        {words.map(({ word, key, chars }, i) => (
+          <span
+            key={key}
+            className="inline-flex overflow-hidden align-baseline"
+            style={{ marginRight: i < words.length - 1 ? "0.28em" : 0 }}
+            aria-hidden
+          >
+            {chars.map(({ char, key: ck }) => (
               <span
-                key={key}
+                key={ck}
                 data-char
                 className="inline-block will-change-transform"
-                aria-hidden
               >
                 {char}
               </span>
-            )
-          )}
-        </span>
+            ))}
+          </span>
+        ))}
       </h1>
 
       <div className="mt-5 h-8 overflow-hidden" aria-live="polite">

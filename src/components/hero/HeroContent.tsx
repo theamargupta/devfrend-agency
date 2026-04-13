@@ -22,7 +22,7 @@ export default function HeroContent() {
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden"
     >
       <HeroScene />
-      <div className="mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter)] pb-24 pt-40">
+      <div className="relative z-10 mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter)] pb-24 pt-40">
         <p className="mb-8 font-mono text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-2)]">
           {BRAND.name} · a boutique engineering studio
         </p>
