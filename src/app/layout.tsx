@@ -42,6 +42,9 @@ export const metadata: Metadata = {
   keywords: [...SEO_DEFAULTS.keywords],
   authors: [{ name: BRAND.fullName }],
   metadataBase: new URL(`https://${BRAND.domain}`),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: SEO_DEFAULTS.title,
     description: SEO_DEFAULTS.description,
@@ -53,6 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SEO_DEFAULTS.title,
     description: SEO_DEFAULTS.description,
+    creator: "@devfrend",
   },
 };
 
@@ -88,6 +92,22 @@ export default function RootLayout({
                 "https://linkedin.com/in/devfrend",
                 "https://twitter.com/devfrend",
               ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: BRAND.name,
+              url: `https://${BRAND.domain}`,
+              description: SEO_DEFAULTS.description,
+              publisher: {
+                "@type": "Organization",
+                name: BRAND.fullName,
+              },
             }),
           }}
         />
